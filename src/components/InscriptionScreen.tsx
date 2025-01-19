@@ -14,6 +14,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import { AuthentService } from '../services/AuthentService';
 import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Inscription: undefined;
@@ -95,117 +96,123 @@ const InscriptionScreen : React.FC<Props> =  ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={'padding'}
-    >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={'padding'}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.form}>
-            <Text style={styles.header}>Rejoignez Optimmo aujourd'hui</Text>
-            <View style={styles.field}>
-              <Text style={styles.label}>E-mail *</Text>
-              <TextInput
-                style={styles.input}
-                value={email}
-                onChangeText={(text) => {
-                  setEmail(text);
-                  setEmailError('');
-                }}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-              {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Mot de passe *</Text>
-              <TextInput
-                style={styles.input}
-                value={password}
-                onChangeText={(text) => {
-                  setPassword(text);
-                  setPasswordError('');
-                }}
-                secureTextEntry
-              />
-              {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Confirmez le mot de passe *</Text>
-              <TextInput
-                style={styles.input}
-                value={confirmPassword}
-                onChangeText={(text) => {
-                  setConfirmPassword(text);
-                  setConfirmPasswordError('');
-                }}
-                secureTextEntry
-              />
-              {confirmPasswordError ? <Text style={styles.error}>{confirmPasswordError}</Text> : null}
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Nom</Text>
-              <TextInput
-                style={styles.input}
-                value={nom}
-                onChangeText={setNom}
-              />
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Prénom</Text>
-              <TextInput
-                style={styles.input}
-                value={prenom}
-                onChangeText={setPrenom}
-              />
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Téléphone</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <CountryPicker
-                  withFlag
-                  withCallingCode
-                  withFilter
-                  countryCode={countryCode}
-                  onSelect={(country) => {
-                    setCountryCode(country.cca2);
-                    setCallingCode(country.callingCode[0]);
-                  }}
-                />
-                <Text style={styles.callingCode}>+{callingCode}</Text>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.form}>
+              <Text style={styles.header}>Rejoignez Optimmo aujourd'hui</Text>
+              <View style={styles.field}>
+                <Text style={styles.label}>E-mail *</Text>
                 <TextInput
-                  style={[styles.input, { flex: 1 }]}
-                  value={telephone}
-                  onChangeText={setTelephone}
-                  keyboardType="phone-pad"
+                  style={styles.input}
+                  value={email}
+                  onChangeText={(text) => {
+                    setEmail(text);
+                    setEmailError('');
+                  }}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+                {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+              </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>Mot de passe *</Text>
+                <TextInput
+                  style={styles.input}
+                  value={password}
+                  onChangeText={(text) => {
+                    setPassword(text);
+                    setPasswordError('');
+                  }}
+                  secureTextEntry
+                />
+                {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+              </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>Confirmez le mot de passe *</Text>
+                <TextInput
+                  style={styles.input}
+                  value={confirmPassword}
+                  onChangeText={(text) => {
+                    setConfirmPassword(text);
+                    setConfirmPasswordError('');
+                  }}
+                  secureTextEntry
+                />
+                {confirmPasswordError ? <Text style={styles.error}>{confirmPasswordError}</Text> : null}
+              </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>Nom</Text>
+                <TextInput
+                  style={styles.input}
+                  value={nom}
+                  onChangeText={setNom}
                 />
               </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>Prénom</Text>
+                <TextInput
+                  style={styles.input}
+                  value={prenom}
+                  onChangeText={setPrenom}
+                />
+              </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>Téléphone</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <CountryPicker
+                    withFlag
+                    withCallingCode
+                    withFilter
+                    countryCode={countryCode}
+                    onSelect={(country) => {
+                      setCountryCode(country.cca2);
+                      setCallingCode(country.callingCode[0]);
+                    }}
+                  />
+                  <Text style={styles.callingCode}>+{callingCode}</Text>
+                  <TextInput
+                    style={[styles.input, { flex: 1 }]}
+                    value={telephone}
+                    onChangeText={setTelephone}
+                    keyboardType="phone-pad"
+                  />
+                </View>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  (!email || !password || !confirmPassword || password !== confirmPassword) && {
+                    backgroundColor: 'gainsboro',
+                  },
+                ]}
+                onPress={handleRegister}
+                disabled={!email || !password || !confirmPassword || password !== confirmPassword}
+              >
+                <Text style={styles.buttonText}>S'inscrire</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Connexion')}>
+                <Text style={styles.link}>Connectez-vous ?</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                (!email || !password || !confirmPassword || password !== confirmPassword) && {
-                  backgroundColor: 'gainsboro',
-                },
-              ]}
-              onPress={handleRegister}
-              disabled={!email || !password || !confirmPassword || password !== confirmPassword}
-            >
-              <Text style={styles.buttonText}>S'inscrire</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Connexion')}>
-              <Text style={styles.link}>Connectez-vous ?</Text>
-            </TouchableOpacity>
-          </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>  
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f7f7f8',
@@ -222,7 +229,7 @@ const styles = StyleSheet.create({
     color: '#143b86',
     textAlign: 'center',
     marginBottom: 20,
-    marginTop: 100,
+    marginTop: 20,
   },
   field: {
     marginBottom: 16,

@@ -15,6 +15,7 @@ import { AuthentService } from '../services/AuthentService';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '../auth/AuthContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Connexion: undefined;
@@ -77,67 +78,74 @@ const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1 }}>
-              <ScrollView
-                contentContainerStyle={{ flexGrow: 1 }}
-                keyboardShouldPersistTaps="handled"
-              >
-          <View style={styles.form}>
-            <Text style={styles.header}>Se connecter à Optimmo</Text>
-            <View style={styles.field}>
-              <Text style={styles.label}>E-mail</Text>
-              <TextInput
-                style={styles.input}
-                value={email}
-                onChangeText={(text) => {
-                  setEmail(text);
-                  setEmailError(''); // Efface l'erreur dès que l'utilisateur tape
-                }}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-              {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Mot de passe</Text>
-              <TextInput
-                style={styles.input}
-                value={password}
-                onChangeText={(text) => {
-                  setPassword(text);
-                  setPasswordError(''); // Efface l'erreur dès que l'utilisateur tape
-                }}
-                secureTextEntry
-              />
-              {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-            </View>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                (!email || !validateEmail(email) || !password) && { backgroundColor: 'gainsboro' }, // Bouton grisé
-              ]}
-              onPress={handleLogin}
-              disabled={!email || !validateEmail(email) || !password} // Désactive le bouton
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              contentContainerStyle={{ flexGrow: 1 }}
+              keyboardShouldPersistTaps="handled"
             >
-              <Text style={styles.buttonText}>Se connecter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Inscription')}>
-              <Text style={styles.link}>Pas de compte ? Inscrivez-vous</Text>
-            </TouchableOpacity>
+        <View style={styles.form}>
+          <Text style={styles.header}>Se connecter à Optimmo</Text>
+          <View style={styles.field}>
+            <Text style={styles.label}>E-mail</Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={(text) => {
+                setEmail(text);
+                setEmailError(''); // Efface l'erreur dès que l'utilisateur tape
+              }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
           </View>
-          </ScrollView>
-                  </View>
-                </TouchableWithoutFeedback>
-              </KeyboardAvoidingView>
+          <View style={styles.field}>
+            <Text style={styles.label}>Mot de passe</Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={(text) => {
+                setPassword(text);
+                setPasswordError(''); // Efface l'erreur dès que l'utilisateur tape
+              }}
+              secureTextEntry
+            />
+            {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+          </View>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              (!email || !validateEmail(email) || !password) && { backgroundColor: 'gainsboro' }, // Bouton grisé
+            ]}
+            onPress={handleLogin}
+            disabled={!email || !validateEmail(email) || !password} // Désactive le bouton
+          >
+            <Text style={styles.buttonText}>Se connecter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Inscription')}>
+            <Text style={styles.link}>Pas de compte ? Inscrivez-vous</Text>
+          </TouchableOpacity>
+        </View>
+        </ScrollView>
+                </View>
+              </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f7f7f8',
@@ -152,7 +160,7 @@ const styles = StyleSheet.create({
     color: '#143b86',
     textAlign: 'center',
     marginBottom: 20,
-    marginTop: 120,
+    marginTop: 20,
   },
   field: {
     marginBottom: 16,
