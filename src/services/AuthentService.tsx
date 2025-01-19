@@ -1,6 +1,6 @@
-import { RegisterUserRequestDTO } from '../models/RegisterUserRequestDTO';
-import { SuccessResponse } from '../models/SuccessResponse';
-import { ErrorResponse } from '../models/ErrorResponse';
+import { RegisterUserRequestDTO } from '../models/auth/RegisterUserRequestDTO.model';
+import { SuccessResponse } from '../models/exception/SuccessResponse.model';
+import { ErrorResponse } from '../models/exception/ErrorResponse.model';
 import { apiUrl } from '@env';
 
 export class AuthentService {
@@ -52,8 +52,12 @@ export class AuthentService {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Une erreur est survenue.');
       }
-
-      return await response.json();
+      const data = await response.json();
+      if (!data.message) {
+        throw new Error('Token introuvable dans la réponse.');
+      }
+  
+      return data;
     } catch (error: any) {
       throw error;
     }

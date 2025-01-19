@@ -5,21 +5,30 @@ import {
   TextInput, 
   TouchableOpacity, 
   StyleSheet, 
-  Alert,
   Keyboard,
+  Platform,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback, } from 'react-native';
+  TouchableWithoutFeedback, 
+} from 'react-native';
 import { AuthentService } from '../services/AuthentService';
 import Toast from 'react-native-toast-message';
+import { useAuth } from '../auth/AuthContext';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const ConnexionScreen = ({ navigation }) => {
+type RootStackParamList = {
+  Connexion: undefined;
+};
+type Props = NativeStackScreenProps<RootStackParamList, 'Connexion'>;
+
+const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
+  const { login } = useAuth();  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validateEmail = (email:any) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = async () =>{
     setEmailError('');
@@ -54,9 +63,9 @@ const ConnexionScreen = ({ navigation }) => {
       
             try {
               const authentService = new AuthentService();
-              await authentService.authenticateUser(userData);
-              navigation.navigate('Logements');
-            } catch (err) {
+              const token = await authentService.authenticateUser(userData);
+              login(token.message); 
+            } catch (err:any) {
               console
               Toast.show({
                 type: 'error',
@@ -76,7 +85,7 @@ const ConnexionScreen = ({ navigation }) => {
             <View style={{ flex: 1 }}>
               <ScrollView
                 contentContainerStyle={{ flexGrow: 1 }}
-                keyboardShouldPersistTaps="handled" // Permet de garder le clavier ouvert lors des taps
+                keyboardShouldPersistTaps="handled"
               >
           <View style={styles.form}>
             <Text style={styles.header}>Se connecter à Optimmo</Text>
@@ -134,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f7f8',
   },
   form: {
-    backgroundColor: 'white', // Fond blanc pour le formulaire
+    backgroundColor: 'white',
     padding: 20
   },
   header: {

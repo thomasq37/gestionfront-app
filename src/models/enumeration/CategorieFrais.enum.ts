@@ -1,0 +1,15 @@
+export enum CategorieFrais {
+  TAXE_FONCIERE = "Taxe foncière",
+  IMPOTS_SUR_LE_REVENU = "Impôts sur le revenu",
+  CHARGES_COPROPRIETE = "Charges copropriété",
+  ASSURANCE_PROPRIETAIRE = "Assurance propriétaire",
+  FRAIS_GESTION_LOCATIVE = "Frais de gestion locative",
+  ENTRETIEN = "Entretien",
+  TRAVAUX = "Travaux",
+  REMBOURSEMENT_PRET = "Remboursement prêt",
+  IMPOTS_SUR_LOYER = "Impôts sur loyer",
+  FRAIS_NOTARIAUX = "Frais notariaux",
+  FRAIS_AGENT_IMMO = "Frais agent immobilier",
+  DEPENSES_OCCASIONNELLES = "Dépenses occasionnelles",
+  FRAIS_DIVERS = "Frais divers",
+}

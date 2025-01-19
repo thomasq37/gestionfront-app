@@ -5,17 +5,22 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
   KeyboardAvoidingView,
   ScrollView,
-  Platform,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
 import { AuthentService } from '../services/AuthentService';
 import Toast from 'react-native-toast-message';
-const InscriptionScreen = ({ navigation }) => {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  Inscription: undefined;
+};
+type Props = NativeStackScreenProps<RootStackParamList, 'Inscription'>;
+
+const InscriptionScreen : React.FC<Props> =  ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,7 +33,7 @@ const InscriptionScreen = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validateEmail = (email:any) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleRegister = async () =>{
     setEmailError('');
@@ -78,8 +83,8 @@ const InscriptionScreen = ({ navigation }) => {
           text1: 'Succès',
           text2: 'Inscription réussie ! Vous pouvez vous connecter.',
         });
-          //navigation.navigate('Connexion');
-      } catch (err) {
+        navigation.navigate('Connexion');
+      } catch (err: any) {
         Toast.show({
           type: 'error',
           text1: 'Erreur',
