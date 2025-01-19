@@ -1,8 +1,8 @@
-import { SuccessResponse } from '../models/SuccessResponse';
-import { ErrorResponse } from '../models/ErrorResponse';
 import { apiUrl } from '@env';
 import { LogementDTO } from '../models/entites/Logement/LogementDTO.model';
 import { authFetch } from './http-helpers';
+import { ErrorResponse } from '../models/exception/ErrorResponse.model';
+import { SuccessResponse } from '../models/exception/SuccessResponse.model';
 export class LogementService {
   private apiUrl = `${apiUrl}/logements`;
 
