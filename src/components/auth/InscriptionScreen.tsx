@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
-import { AuthentService } from '../services/AuthentService';
+import { AuthentService } from '../../services/AuthentService';
 import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';

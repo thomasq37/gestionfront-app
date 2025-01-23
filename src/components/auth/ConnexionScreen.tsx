@@ -11,24 +11,27 @@ import {
   ScrollView,
   TouchableWithoutFeedback, 
 } from 'react-native';
-import { AuthentService } from '../services/AuthentService';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthentService } from '../../services/AuthentService';
 import Toast from 'react-native-toast-message';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../../auth/AuthContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Connexion: undefined;
+  Inscription:undefined;
 };
 type Props = NativeStackScreenProps<RootStackParamList, 'Connexion'>;
-
-const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Connexion'>;
+const ConnexionScreen : React.FC<Props> = () => {
   const { login } = useAuth();  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
+  const navigation = useNavigation<NavigationProp>();
   const validateEmail = (email:any) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = async () =>{
@@ -98,7 +101,7 @@ const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
               value={email}
               onChangeText={(text) => {
                 setEmail(text);
-                setEmailError(''); // Efface l'erreur dès que l'utilisateur tape
+                setEmailError('');
               }}
               keyboardType="email-address"
               autoCapitalize="none"
@@ -112,7 +115,7 @@ const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
-                setPasswordError(''); // Efface l'erreur dès que l'utilisateur tape
+                setPasswordError('');
               }}
               secureTextEntry
             />
@@ -121,10 +124,10 @@ const ConnexionScreen : React.FC<Props> = ({ navigation }) => {
           <TouchableOpacity
             style={[
               styles.button,
-              (!email || !validateEmail(email) || !password) && { backgroundColor: 'gainsboro' }, // Bouton grisé
+              (!email || !validateEmail(email) || !password) && { backgroundColor: 'gainsboro' },
             ]}
             onPress={handleLogin}
-            disabled={!email || !validateEmail(email) || !password} // Désactive le bouton
+            disabled={!email || !validateEmail(email) || !password} 
           >
             <Text style={styles.buttonText}>Se connecter</Text>
           </TouchableOpacity>
