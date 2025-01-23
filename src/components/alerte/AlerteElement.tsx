@@ -51,11 +51,13 @@ const AlerteElement = ({ alertes, ouvrable = false }: { alertes: any[]; ouvrable
       )}
 
       {alertesIsOpen && (
+        
         <FlatList
           data={alertes}
           renderItem={renderAlerte}
           keyExtractor={(item, index) => index.toString()}
           style={styles.alertesList}
+          nestedScrollEnabled={true}
         />
       )}
     </View>

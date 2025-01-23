@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo } from 'react';
+import React, {useCallback, useMemo, useEffect } from 'react';
 import { 
   View, Text, StyleSheet, Image, SafeAreaView 
 } from 'react-native';
@@ -15,6 +15,8 @@ import { PeriodeDeLocationDTO } from '../../models/entites/PeriodeDeLocation/Per
 import { CaracteristiquesDTO } from '../../models/entites/Caracteristiques/CaracteristiquesDTO.model';
 import NavLogement from './NavLogement';
 import { ScrollView } from 'react-native-gesture-handler';
+import { LogBox } from 'react-native';
+
 
 type LogementScreenRouteProp = RouteProp<RootStackParamList, 'Logement'>;
 type LogementScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Logement'>;
@@ -27,6 +29,9 @@ type Props = {
 const LogementScreen: React.FC<Props> = ({ route, navigation }) => {
   const { logement } = route.params;
   const { logout } = useAuth();
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+}, [])
 
   const dpeImages: { [key: string]: any } = useMemo(() => ({
     a: require('../../assets/img/energie-a-icon.png'),
@@ -97,6 +102,7 @@ const LogementScreen: React.FC<Props> = ({ route, navigation }) => {
   }, []);
 
   const LogementDetails = useCallback(() => {
+
     if (!logement?.adresse || !logement?.caracteristiques) return null;
 
     return (
