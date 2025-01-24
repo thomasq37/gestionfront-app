@@ -141,9 +141,7 @@ const LogementScreen: React.FC<Props> = ({ route, navigation }) => {
         )}
 
         <AlerteElement alertes={logement.alertes} ouvrable={true} />
-        <NavLogement
-            logement={logement}
-            menuItems={menuItems}></NavLogement>
+      
             
       </View>
     );
@@ -176,6 +174,9 @@ const LogementScreen: React.FC<Props> = ({ route, navigation }) => {
         )}
 
         <LogementDetails />
+        <NavLogement
+            logement={logement}
+            menuItems={menuItems}></NavLogement>
       </View>
         </ScrollView>
    
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f7f7f8',
     },
     contentContainer: {
         marginTop: 16,

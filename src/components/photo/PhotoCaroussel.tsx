@@ -70,6 +70,7 @@ const variantStyles: Record<
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
       resizeMode: 'cover',
+      height:230
     },
   },
   logement: {
@@ -88,7 +89,7 @@ const variantStyles: Record<
       borderTopLeftRadius: 0,
       borderTopRightRadius: 0,
       resizeMode: 'contain',
-      height:'100%'
+      height:230
     },
   },
 };

@@ -10,7 +10,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import CountryPicker from 'react-native-country-picker-modal';
+import CountryPicker, { CountryCode } from 'react-native-country-picker-modal';
 import { AuthentService } from '../../services/AuthentService';
 import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -18,6 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Inscription: undefined;
+  Connexion: undefined
 };
 type Props = NativeStackScreenProps<RootStackParamList, 'Inscription'>;
 
@@ -28,7 +29,7 @@ const InscriptionScreen : React.FC<Props> =  ({ navigation }) => {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [telephone, setTelephone] = useState('');
-  const [countryCode, setCountryCode] = useState('FR');
+  const [countryCode, setCountryCode] = useState<CountryCode>('FR');
   const [callingCode, setCallingCode] = useState('33');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');

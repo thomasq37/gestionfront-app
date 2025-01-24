@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { LogementDTO } from '../../models/entites/Logement/LogementDTO.model';
 import AdresseElement from '../adresse/AdresseElement';
+import StatistiquesElement from '../statistiques/StatistiquesElement';
+import CaracteristiquesElement from '../caracteristiques/CaracteristiquesElement';
 
 type NavLogementProps = {
   menuItems: string[];
@@ -19,15 +21,11 @@ const NavLogement: React.FC<NavLogementProps> = ({ menuItems, logement }) => {
   const renderContent = () => {
     switch (activeIndex) {
       case 0:
-        return (
-          <View style={styles.content}>
-            <Text style={styles.contentText}>
-              Contenu pour le {logement.adresse?.codePostal} élément du menu
-            </Text>
-          </View>
-        );
+        return <StatistiquesElement logement={logement} />;
         case 1:
           return <AdresseElement adresse={logement.adresse} />;
+        case 2:
+          return <CaracteristiquesElement caracteristiques={logement.caracteristiques} />;  
       
       default:
         return (
@@ -50,7 +48,6 @@ const NavLogement: React.FC<NavLogementProps> = ({ menuItems, logement }) => {
               style={[
                 styles.navItem,
                 index === activeIndex && styles.activeNavItem,
-                index === menuItems.length - 1 && styles.lastNavItem,
                 index === activeIndex && index === menuItems.length - 1 && styles.activeLastNavItem,
               ]}
             >
@@ -77,18 +74,19 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 16,
     marginHorizontal: 20,
+    marginBottom:20
   },
   navLogement: {
     marginTop: 16,
   },
   scrollContainer: {
-    paddingBottom: 24,
+    paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#d0d0d0',
-    marginBottom: 24,
+    marginBottom: 5,
   },
   navItem: {
-    paddingBottom: 16,
+    paddingBottom: 12,
     marginRight: 16,
     borderBottomWidth: 5,
     borderBottomColor: 'transparent',
@@ -116,50 +114,6 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 16,
     color: '#333',
-  },
-  adresseElement: {
-    marginTop: 16,
-  },
-  customCard: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  customCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  editIcon: {
-    width: 20,
-    height: 20,
-    tintColor: '#007BFF',
-  },
-  adresseContenu: {
-    marginTop: 16,
-  },
-  adresseField: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  fieldLabel: {
-    fontWeight: 'bold',
-    marginRight: 8,
-    color: '#333',
-  },
-  fieldValue: {
-    color: '#666',
   },
 });
 

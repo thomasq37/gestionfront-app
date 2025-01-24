@@ -15,7 +15,7 @@ const AdresseElement: React.FC<AdresseElementProps> = ({ adresse }) => {
             {adresse ? 'Adresse' : 'Adresse à renseigner'}
           </Text>
           <Image
-            source={require('../../assets/img/danger-icon.png')}
+            source={require('../../assets/img/edit-icon.png')}
             style={styles.editIcon}
           />
         </View>
@@ -54,32 +54,42 @@ const styles = StyleSheet.create({
   },
   customCard: {
     backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+    borderWidth: 1,
+    borderColor: '#d1d1d1'
   },
   customCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    padding: 10,
+
+    borderBottomWidth: 1, // Ajoute une bordure
+
+    borderBottomColor: '#d1d1d1'
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#143b86',
   },
   editIcon: {
-    width: 20,
-    height: 20,
-    tintColor: '#007BFF',
+    width: 30,
+    height: 30,
+    padding:5,
+    tintColor: '#143b86',
+    borderColor: '#d1d1d1',
+    borderWidth: 1, // Ajoute une bordure
+    borderRadius: '50%', // 50% de width/height pour un cercle parfait
   },
+  
   adresseContenu: {
-    marginTop: 16,
+    margin: 10,
   },
   adresseField: {
     flexDirection: 'row',
@@ -88,7 +98,7 @@ const styles = StyleSheet.create({
   fieldLabel: {
     fontWeight: 'bold',
     marginRight: 8,
-    color: '#333',
+    color: '#143b86',
   },
   fieldValue: {
     color: '#666',

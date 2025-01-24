@@ -162,9 +162,12 @@ const LogementsScreen = () => {
       
         <View style={styles.content}>
           {isLoading ? (
-            <View style={styles.centeredContainer}>
-              <ActivityIndicator size="large" color="#143b86" />
-            </View>
+          <View style={styles.centeredContainer}>
+            <Image
+              source={require('../../assets/img/loader.gif')} // Remplacez par le chemin de votre GIF
+              style={styles.gif}
+            />
+          </View>
           ) : error ? (
             <Text style={styles.error}>{error}</Text>
           ) : logements.length > 0 ? (
@@ -203,6 +206,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gif:{
+    width:100,
+    height:100
   },
   container: {
     flex: 1,
@@ -248,7 +255,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
   },
   headerLogementInfos: {
-    marginTop: 10,
+    marginTop: 15,
   },
   typeLogementNouveau: {
     fontSize: 18,
@@ -262,7 +269,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop:15
   },
   typeLogement: {
     fontSize: 18,
@@ -275,7 +281,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ville: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#676767',
     textTransform: 'uppercase',
     marginVertical: 8,
